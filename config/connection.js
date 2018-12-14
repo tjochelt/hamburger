@@ -1,10 +1,13 @@
 const mysql = require("mysql");
+// const env = require("../.env");
+let password = process.env.MYSQL;
 
+console.log(password);
 const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: process.env.MYSQL,
+  password: password,
   database: "burgers_db"
 });
 
