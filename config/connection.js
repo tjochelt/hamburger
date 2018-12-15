@@ -1,13 +1,14 @@
 const mysql = require("mysql");
 // const env = require("../.env");
-let password = process.env.MYSQL;
-
-console.log(password);
+const keys = require("../keys.js");
+// var password = process.env.MYSQL;
+require("dotenv").config();
+// console.log(password);
 const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: password,
+  password: process.env.MYSQL,
   database: "burgers_db"
 });
 
