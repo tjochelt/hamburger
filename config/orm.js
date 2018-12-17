@@ -1,19 +1,17 @@
-const connection = require("../config/connection.js");
+const connection = require("./connection.js");
 
 const orm = {
-  selectAll: function(whatToSelect, tableInput) {
-    var queryString = "SELECT ?? FROM ??";
-    connection.query(queryString, [whatToSelect, tableInput], function(
-      err,
-      result
-    ) {
+  selectAllBurgers: cb => {
+    // console.log(tableInput + " this the tableinput");
+    const queryString = "SELECT * FROM burgers";
+    connection.query(queryString, (err, result) => {
       if (err) throw err;
-      console.log(result);
+      console.log("from orm file" + result);
+      // cb(result);
     });
   },
-  insertOne: function(tableInput, colToSearch, valOfCol) {
-    var queryString = "SELECT * FROM ?? WHERE ?? = ?";
-
+  createNewBurger: (tableInput, colToSearch, valOfCol) => {
+    let queryString = "insert into ?? (name, devoured) values (?, ?)";
     console.log(queryString);
 
     connection.query(queryString, [tableInput, colToSearch, valOfCol], function(
@@ -24,17 +22,8 @@ const orm = {
       console.log(result);
     });
   },
-  updateOne: function(
-    whatToSelect,
-    tableOne,
-    tableTwo,
-    onTableOneCol,
-    onTableTwoCol
-  ) {
-    var queryString = "SELECT ?? FROM ?? AS tOne";
-    queryString += " LEFT JOIN ?? AS tTwo";
-    queryString += " ON tOne.?? = tTwo.??";
-
+  updateBurger: (whatToUpdate, newValue, idValue) => {
+    let queryString = "UPDATE burgers SET ?? = ? where id=?";
     console.log(queryString);
 
     connection.query(queryString, function(err, result) {
