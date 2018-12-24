@@ -5,24 +5,23 @@ const router = express.Router();
 router.get("/", function(req, res) {
   burger.selectAllBurgers(function(data) {
     console.log("we got here");
-    var hbsObject = {
-      burger: data
+    var handlebarsObject = {
+      burgers_data: data
     };
-    console.log(hbsObject);
-    res.render("index", hbsObject);
+    console.log(handlebarsObject);
+    res.render("index", handlebarsObject);
   });
 });
 
-router.post("/api/burgers/:burgerName", function(req, res) {
-  burger.createNewBurger(req.params.burgerName, false, result => {
-    console.log("insert burger", result);
-    res.json({ id: result.insertID });
-  });
-  // ["name", "devoured"],
-  // [req.body.name, req.body.devoured],
-  // function(result) {
-  //   // Send back the ID of the new quote
-  //   res.json({ id: result.insertId });
+router.post("/api/burgers", function(req, res) {
+  burger.createNewBurger(
+    ["name", "devoured"],
+    [req.body.name, req.body.devoured],
+    result => {
+      console.log("insert burger", result);
+      res.json({ id: result.insertID });
+    }
+  );
 });
 
 router.put("/api/burgers/:id", function(req, res) {
@@ -42,32 +41,3 @@ router.put("/api/burgers/:id", function(req, res) {
   });
 });
 module.exports = router;
-
-// {
-//   devoured: req.body.devoured
-// },
-// condition,
-// function(result) {
-//   if (result.changedRows == 0) {
-//     // If no rows were changed, then the ID must not exist, so 404
-//     return res.status(404).end();
-//   } else {
-//     res.status(200).end();
-//   }
-//   }
-// );
-
-// router.delete("/api/burgers/:id", function(req, res) {
-//   var condition = "id = " + req.params.id;
-
-//   burger.delete(condition, function(result) {
-//     if (result.affectedRows == 0) {
-//       // If no rows were changed, then the ID must not exist, so 404
-//       return res.status(404).end();
-//     } else {
-//       res.status(200).end();
-//     }
-//   });
-// });
-
-// Export routes for server.js to use.

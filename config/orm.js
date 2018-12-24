@@ -6,7 +6,8 @@ const orm = {
     const queryString = "SELECT * FROM burgers";
     connection.query(queryString, (err, result) => {
       if (err) throw err;
-      console.log("from orm file" + result);
+      const stringResult = JSON.stringify(result);
+      console.log("from orm file" + stringResult);
       // cb(result);
     });
   },

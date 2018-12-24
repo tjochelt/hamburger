@@ -5,7 +5,7 @@
 <ul>
     {{#each name}}
     {{#unless devoured}}
-    {{!-- {{> cats/cat-block devoured=true}} --}}
+    {{> cats/cat-block devoured=true}}
     {{/unless}}
     {{/each}}
 </ul>
@@ -15,7 +15,7 @@
 <ul>
     {{#each name}}
     {{#if devoured}}
-    {{!-- {{> cats/cat-block sleep=false}} --}}
+    {{> cats/cat-block sleep=false}}
     {{/if}}
     {{/each}}
 </ul>
