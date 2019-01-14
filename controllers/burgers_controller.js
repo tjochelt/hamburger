@@ -3,23 +3,23 @@ const burger = require("../models/burger.js");
 const router = express.Router();
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
-  burger.selectAllBurgers(function(data) {
-    console.log("we got here");
+  burger.allBurgers(function(data) {
+    console.log("we got here", data);
     var handlebarsObject = {
-      burgers_data: data
+      burgers: data
     };
-    console.log(handlebarsObject);
+    console.log("this is the hbs", handlebarsObject);
     res.render("index", handlebarsObject);
   });
 });
 
 router.post("/api/burgers", function(req, res) {
-  burger.createNewBurger(
+  burger.createBurger(
     ["name", "devoured"],
     [req.body.name, req.body.devoured],
     result => {
       console.log("insert burger", result);
-      res.json({ id: result.insertID });
+      res.json({ id: result.insertId });
     }
   );
 });
@@ -28,16 +28,22 @@ router.put("/api/burgers/:id", function(req, res) {
   console.log("id=", req.params.id);
   console.log("EATEN  :" + req.body.eaten);
   console.log(req.body);
-  let devouredStatus = "id = " + req.params.id;
+  var devouredStatus = "id = " + req.params.id;
 
   console.log("Devoured status", devouredStatus);
 
-  burger.updateBurger(req.params.id, req.params.eaten, result => {
-    if (result.changedRows == 0) {
-      return res.status(404).end();
-    } else {
-      res.status(200).end();
+  burger.updateBurger(
+    {
+      devoured: req.body.devoured
+    },
+    devouredStatus,
+    result => {
+      if (result.changedRows == 0) {
+        return res.status(404).end();
+      } else {
+        res.status(200).end();
+      }
     }
-  });
+  );
 });
 module.exports = router;

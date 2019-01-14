@@ -2,18 +2,18 @@
 $(function() {
   $(".devour-burger").on("click", function(event) {
     var id = $(this).data("id");
-    var newSleep = $(this).data("newsleep");
-
-    var newSleepState = {
-      sleepy: newSleep
+    var newDevour = $(this).data("newdevour");
+    console.log("hi", id, newDevour);
+    var newBurgerState = {
+      devoured: newDevour
     };
-
+    console.log("you clicked button", id, newDevour);
     // Send the PUT request.
     $.ajax("/api/burgers/" + id, {
       type: "PUT",
-      data: newSleepState
+      data: newBurgerState
     }).then(function() {
-      console.log("changed sleep to", newSleep);
+      console.log("burger is now", newDevour);
       // Reload the page to get the updated list
       location.reload();
     });
@@ -23,11 +23,11 @@ $(function() {
     // Make sure to preventDefault on a submit event.
     event.preventDefault();
 
-    var newCat = {
+    var newBurger = {
       name: $("#ca")
         .val()
         .trim(),
-      sleepy: $("[name=sleepy]:checked")
+      devoured: $("[name=devoured]:checked")
         .val()
         .trim()
     };
@@ -35,9 +35,9 @@ $(function() {
     // Send the POST request.
     $.ajax("/api/burgers", {
       type: "POST",
-      data: newCat
+      data: newBurger
     }).then(function() {
-      console.log("created new cat");
+      console.log("created new burger");
       // Reload the page to get the updated list
       location.reload();
     });

@@ -1,21 +1,21 @@
 const orm = require("../config/orm.js");
 
 const burger = {
-  selectAllBurgers: cb => {
-    orm.selectAllBurgers("burgers", res => {
-      console.log(res);
-      // cb(res);
+  allBurgers: cb => {
+    orm.allBurgers("burgers", res => {
+      console.log("we're here in the burger file", res);
+      cb(res);
     });
   },
   // The variables cols and vals are arrays.
-  createNewBurger: (name, devoured, cb) => {
-    orm.createNewBurger("burgers", name, devoured, res => {
-      // cb(res);
+  createBurger: (cols, vals, cb) => {
+    orm.createBurger("burgers", cols, vals, res => {
+      cb(res);
     });
   },
-  updateBurger: (id, devoured, cb) => {
-    orm.updateBurger("burgers", id, devoured, function(res) {
-      // cb(res);
+  updateBurger: (objColVals, condition, cb) => {
+    orm.updateBurger("burgers", objColVals, condition, function(res) {
+      cb(res);
     });
   }
 };
