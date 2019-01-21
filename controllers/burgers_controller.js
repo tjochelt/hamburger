@@ -26,11 +26,11 @@ router.post("/api/burgers", function(req, res) {
 
 router.put("/api/burgers/:id", function(req, res) {
   console.log("id=", req.params.id);
-  console.log("EATEN  :" + req.body.eaten);
+  console.log("EATEN  :" + req.body.devoured);
   console.log(req.body);
   var devouredStatus = "id = " + req.params.id;
 
-  console.log("Devoured status", devouredStatus);
+  console.log("Devoured status something", devouredStatus);
 
   burger.updateBurger(
     {
@@ -46,4 +46,21 @@ router.put("/api/burgers/:id", function(req, res) {
     }
   );
 });
+router.delete("/api/burgers/:id", function(req, res) {
+  console.log("id=", req.params.id);
+  console.log("EATEN  :" + req.body.devoured);
+  console.log(req.body);
+  var devouredStatus = "id = " + req.params.id;
+
+  console.log("Devoured status something", devouredStatus);
+
+  burger.deleteBurger(devouredStatus, result => {
+    if (result.changedRows == 0) {
+      return res.status(404).end();
+    } else {
+      res.status(200).end();
+    }
+  });
+});
+
 module.exports = router;

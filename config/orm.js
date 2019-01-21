@@ -88,11 +88,12 @@ var orm = {
       cb(result);
     });
   },
-  delete: function(table, condition, cb) {
+  deleteBurger: function(table, condition, cb) {
+    console.log("delete console log", table, condition);
     var queryString = "DELETE FROM " + table;
     queryString += " WHERE ";
     queryString += condition;
-
+    console.log("line 96", queryString);
     connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
